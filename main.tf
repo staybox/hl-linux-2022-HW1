@@ -62,7 +62,7 @@ resource "yandex_vpc_network" "web-servers-network-01" {
 // Create Subnets
 resource "yandex_vpc_subnet" "web-servers-subnet-01" {
   name           = "web-servers-subnet-01"
-  zone           = "ru-central1-a"
+  zone           = var.access["zone"]
   network_id     = yandex_vpc_network.web-servers-network-01.id
   v4_cidr_blocks = ["10.158.0.0/24"]
 }
