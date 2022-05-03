@@ -1,0 +1,30 @@
+ - hosts: all
+   become: true
+   gather_facts: false
+   tasks:
+     - name: Check SSL connection
+       local_action:
+           shell ssh -o UserKnownHostsFile=/dev/null -o \
+           StrictHostKeyChecking=no {{ ansible_user }}@{{ inventory_hostname }} \
+           "echo success"
+       register: ssh_enabled
+       until: ssh_enabled.rc == 0
+       become: false
+       retries: 20
+       delay: 10
+
+ - name: Install Nginx
+   hosts: all
+   become: true
+   tasks:
+   - name: Update all packages
+     apt:
+       update_cache: yes
+   - name: Install Nginx
+     apt:
+       name: nginx
+       state: latest
+   - name: Enable Nginx
+     service:
+       name: nginx
+       enabled: yes

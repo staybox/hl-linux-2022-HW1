@@ -1,0 +1,8 @@
+#cloud-config
+users:
+  - name: <INSERT USERNAME>
+    groups: sudo
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh-authorized-keys:
+      - ssh-rsa <INSERT PUBLIC KEY> <INSERT USERNAME>
