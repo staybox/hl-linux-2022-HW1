@@ -75,7 +75,7 @@ resource "yandex_compute_disk" "msk-ngx-secondary-data-disk" {
   count = var.data["count"]
   name = "msk-ngx-secondary-data-disk-${count.index+1}"
   type = "network-hdd"
-  zone = "ru-central1-a"
+  zone = var.access["zone"]
   size = "5"
 }
 // Create secondary disks
